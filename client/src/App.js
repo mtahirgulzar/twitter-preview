@@ -277,14 +277,7 @@ function App() {
             <li><strong>Compare:</strong> Test same URL multiple times to see consistency</li>
           </ol>
           
-          <div className="issue-description">
-            <h3>🎯 Expected Issue</h3>
-            <p>
-              When you click "Test on Twitter", the OG image preview should NOT appear 
-              on the first attempt. Only after using the Card Validator or multiple 
-              attempts should the preview show up.
-            </p>
-          </div>
+
         </section>
       </main>
     </div>

@@ -18,11 +18,11 @@ const testData = {
   slugs: ['quickprofits', 'digitaldollars', 'bellyburner', 'wealthwizard', 'moneymaker'],
   usernames: ['novelnet', 'bchbhsba', 'profitpro', 'cashking', 'wealthgen'],
   images: [
-    'https://picsum.photos/1200/630?random=1',
-    'https://picsum.photos/1200/630?random=2', 
-    'https://picsum.photos/1200/630?random=3',
-    'https://picsum.photos/1200/630?random=4',
-    'https://picsum.photos/1200/630?random=5'
+    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&h=630&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=1200&h=630&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&h=630&fit=crop&crop=center'
   ]
 };
 

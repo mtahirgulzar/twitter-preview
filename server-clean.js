@@ -20,7 +20,7 @@ const testData = {
   usernames: ['novelnet', 'bchbhsba', 'profitpro', 'cashking', 'wealthgen'],
   images: [
     'https://picsum.photos/1200/630?random=1',
-    'https://picsum.photos/1200/630?random=2', 
+    'https://picsum.photos/1200/630?random=2',
     'https://picsum.photos/1200/630?random=3',
     'https://picsum.photos/1200/630?random=4',
     'https://picsum.photos/1200/630?random=5'
@@ -45,9 +45,9 @@ function isBotRequest(userAgent) {
     'googlebot',
     'bingbot'
   ];
-  
+
   if (!userAgent) return false;
-  return botPatterns.some(pattern => 
+  return botPatterns.some(pattern =>
     userAgent.toLowerCase().includes(pattern.toLowerCase())
   );
 }
@@ -155,20 +155,20 @@ app.get('/landing-:slug/:username/:id', (req, res) => {
   const { slug, username, id } = req.params;
   const userAgent = req.get('User-Agent') || '';
   const isBot = isBotRequest(userAgent);
-  
+
   // Find matching data or use defaults
   const slugIndex = testData.slugs.indexOf(slug);
   const imageIndex = slugIndex >= 0 ? slugIndex : 0;
-  
+
   const ogImage = testData.images[imageIndex];
   const title = `${slug.charAt(0).toUpperCase() + slug.slice(1)} Landing Page`;
   const description = `Exclusive landing page for ${username} - ID: ${id}`;
   const currentUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  
+
   console.log(`Request from ${isBot ? 'BOT' : 'USER'}: ${userAgent}`);
   console.log(`URL: ${currentUrl}`);
   console.log(`OG Image: ${ogImage}`);
-  
+
   // For bots: serve static HTML with OG tags
   if (isBot) {
     const botHtml = generateBotHTML({
@@ -182,7 +182,7 @@ app.get('/landing-:slug/:username/:id', (req, res) => {
     });
     return res.send(botHtml);
   }
-  
+
   // For humans: redirect to React app with URL params
   const reactUrl = `/?preview=landing-${slug}/${username}/${id}`;
   res.redirect(reactUrl);
@@ -196,18 +196,18 @@ app.get('/api/test-data', (req, res) => {
 // API endpoint to generate a new test URL
 app.post('/api/generate-url', (req, res) => {
   const { slug, username, imageIndex } = req.body;
-  
+
   if (!slug || !username || imageIndex === undefined) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }
-  
+
   const randomId = generateRandomId();
-  const baseUrl = req.get('host') === 'localhost:3001' 
-    ? `http://localhost:${PORT}` 
+  const baseUrl = req.get('host') === 'localhost:3001'
+    ? `http://localhost:${PORT}`
     : `https://${req.get('host')}`;
-  
+
   const url = `${baseUrl}/landing-${slug}/${username}/${randomId}`;
-  
+
   res.json({
     url,
     slug,
@@ -220,28 +220,28 @@ app.post('/api/generate-url', (req, res) => {
 // API endpoint to get preview data for a URL
 app.get('/api/preview-data', (req, res) => {
   const { url } = req.query;
-  
+
   if (!url) {
     return res.status(400).json({ error: 'URL parameter required' });
   }
-  
+
   // Extract parameters from URL
   const urlPattern = /\/landing-([^/]+)\/([^/]+)\/([^/]+)$/;
   const match = url.match(urlPattern);
-  
+
   if (!match) {
     return res.status(400).json({ error: 'Invalid URL format' });
   }
-  
+
   const [, slug, username, id] = match;
-  
+
   // Generate preview data (same as what would be served to bots)
   const title = `${slug.charAt(0).toUpperCase() + slug.slice(1)} Landing Page`;
   const description = `Exclusive landing page for ${username} - ID: ${id}`;
   const slugIndex = testData.slugs.indexOf(slug);
   const imageIndex = slugIndex >= 0 ? slugIndex : 0;
   const image = testData.images[imageIndex];
-  
+
   res.json({
     title,
     description,
@@ -253,11 +253,11 @@ app.get('/api/preview-data', (req, res) => {
 // API endpoint to pre-warm a URL (simulate bot requests)
 app.post('/api/pre-warm', async (req, res) => {
   const { url } = req.body;
-  
+
   if (!url) {
     return res.status(400).json({ error: 'URL parameter required' });
   }
-  
+
   try {
     // Simulate multiple bot requests to pre-warm the URL
     const botUserAgents = [
@@ -266,7 +266,7 @@ app.post('/api/pre-warm', async (req, res) => {
       'LinkedInBot/1.0',
       'WhatsApp/2.0'
     ];
-    
+
     const requests = botUserAgents.map(userAgent => {
       return new Promise((resolve) => {
         // Simulate internal request to the URL with bot user agent
@@ -275,15 +275,15 @@ app.post('/api/pre-warm', async (req, res) => {
         }, 100);
       });
     });
-    
+
     await Promise.all(requests);
-    
+
     res.json({
       success: true,
       message: 'URL pre-warmed with multiple bot user agents',
       timestamp: new Date().toISOString()
     });
-    
+
   } catch (error) {
     console.error('Pre-warming error:', error);
     res.status(500).json({
@@ -303,18 +303,18 @@ app.get('*', (req, res) => {
     // This should have been handled by the dynamic route above
     return res.status(404).send('Landing page not found');
   }
-  
+
   // For all other routes, serve the React app
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Twitter OG Test Server running on http://localhost:${PORT}`);
-  console.log(`📝 Test URLs format: /landing-{slug}/{username}/{id}`);
-  console.log(`🔧 Available slugs: ${testData.slugs.join(', ')}`);
-  console.log(`👤 Available usernames: ${testData.usernames.join(', ')}`);
-  console.log(`🎯 React app available at: http://localhost:${PORT}`);
-  console.log(`📊 API endpoints:`);
+  console.log(`Twitter OG Test Server running on http://localhost:${PORT}`);
+  console.log(`Test URLs format: /landing-{slug}/{username}/{id}`);
+  console.log(`Available slugs: ${testData.slugs.join(', ')}`);
+  console.log(`Available usernames: ${testData.usernames.join(', ')}`);
+  console.log(`React app available at: http://localhost:${PORT}`);
+  console.log(`API endpoints:`);
   console.log(`   GET  /api/test-data - Get test configuration`);
   console.log(`   POST /api/generate-url - Generate new test URL`);
   console.log(`   GET  /api/preview-data - Get OG preview data`);

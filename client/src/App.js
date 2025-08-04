@@ -126,13 +126,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🐦 Twitter OG Preview Tester</h1>
+        <h1>Twitter OG Preview Tester</h1>
         <p>Test dynamic URL Twitter card previews</p>
       </header>
 
       <main className="App-main">
         <section className="generator-section">
-          <h2>🔧 Generate Test URL</h2>
+          <h2>Generate Test URL</h2>
           
           <div className="form-group">
             <label>Slug:</label>
@@ -182,13 +182,13 @@ function App() {
             disabled={isLoading}
             className="generate-btn"
           >
-            {isLoading ? 'Generating...' : '🎯 Generate New Test URL'}
+            {isLoading ? 'Generating...' : 'Generate New Test URL'}
           </button>
         </section>
 
         {generatedUrl && (
           <section className="url-section">
-            <h2>🔗 Generated URL</h2>
+            <h2>Generated URL</h2>
             <div className="url-display">
               <input 
                 type="text" 
@@ -200,13 +200,13 @@ function App() {
                 onClick={() => navigator.clipboard.writeText(generatedUrl)}
                 className="copy-btn"
               >
-                📋 Copy
+                Copy
               </button>
             </div>
 
             {previewData && (
               <div className="preview-data">
-                <h3>📊 OG Meta Data</h3>
+                <h3>OG Meta Data</h3>
                 <div className="meta-info">
                   <p><strong>Title:</strong> {previewData.title}</p>
                   <p><strong>Description:</strong> {previewData.description}</p>
@@ -220,14 +220,14 @@ function App() {
                 onClick={() => testTwitterShare(generatedUrl)}
                 className="twitter-btn"
               >
-                🐦 Test on Twitter
+                Test on Twitter
               </button>
               
               <button 
                 onClick={() => testCardValidator(generatedUrl)}
                 className="validator-btn"
               >
-                🔍 Twitter Card Validator
+                Twitter Card Validator
               </button>
               
               <button 
@@ -235,14 +235,14 @@ function App() {
                 disabled={isLoading}
                 className="prewarm-btn"
               >
-                🔥 Pre-warm URL
+                Pre-warm URL
               </button>
               
               <button 
                 onClick={() => window.open(generatedUrl, '_blank')}
                 className="view-btn"
               >
-                👁️ View Landing Page
+                View Landing Page
               </button>
             </div>
           </section>
@@ -250,7 +250,7 @@ function App() {
 
         {testResults.length > 0 && (
           <section className="results-section">
-            <h2>📈 Test History</h2>
+            <h2>Test History</h2>
             <div className="results-list">
               {testResults.map(result => (
                 <div key={result.id} className="result-item">
@@ -268,7 +268,7 @@ function App() {
         )}
 
         <section className="instructions-section">
-          <h2>📋 Testing Instructions</h2>
+          <h2>Testing Instructions</h2>
           <ol>
             <li><strong>Generate URL:</strong> Select options and click "Generate New Test URL"</li>
             <li><strong>Test Method 1:</strong> Click "Test on Twitter" - check if image preview appears immediately</li>
